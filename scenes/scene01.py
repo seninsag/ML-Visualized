@@ -20,7 +20,11 @@ class Scene01(Scene):
             font_size=42,
         )
 
-        self.play(FadeIn(question), run_time=2)
+        self.play(
+            FadeIn(question),
+            run_time=2,
+        )
+
         self.wait(2)
 
         self.play(
@@ -76,18 +80,18 @@ class Scene01(Scene):
         self.wait(1)
 
         # ---------------------------------
-        # Simplify
+        # Rearrange the data
         # ---------------------------------
 
-        simplify = Text(
-            "Can we make this even simpler?",
+        rearrange = Text(
+            "What if we arrange the data differently?",
             font_size=30,
         )
 
-        simplify.to_edge(DOWN, buff=0.25)
+        rearrange.to_edge(DOWN, buff=0.25)
 
         self.play(
-            FadeIn(simplify),
+            FadeIn(rearrange),
             run_time=0.8,
         )
 
@@ -101,7 +105,7 @@ class Scene01(Scene):
         self.wait(0.5)
 
         self.play(
-            FadeOut(simplify),
+            FadeOut(rearrange),
             boundary.animate.set_color(BOUNDARY_COLOR),
             run_time=0.6,
         )
@@ -121,30 +125,13 @@ class Scene01(Scene):
             run_time=2,
         )
 
-        self.wait(1.5)
+        # Let the audience absorb the new arrangement
+        self.wait(1.2)
 
-        # ---------------------------------
-        # Ending
-        # ---------------------------------
-
-        ending = Text(
-            "But what about this dataset?",
-            font_size=36,
-        )
-
-        ending.to_edge(DOWN, buff=0.25)
-
+        # The opening question has served its purpose
         self.play(
-            FadeIn(ending),
-            run_time=1,
-        )
-
-        self.wait(2)
-
-        self.play(
-            FadeOut(ending),
             FadeOut(question),
-            run_time=1,
+            run_time=0.8,
         )
 
-        self.wait()
+        self.wait(0.4)
