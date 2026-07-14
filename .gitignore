@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+
+# VS Code
+.vscode/
+
+# Manim Output
+media/
+
+# Windows
+Thumbs.db
+
+# macOS
+.DS_Store
