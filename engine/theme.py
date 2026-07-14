@@ -1,0 +1,25 @@
+from manim import *
+
+# Background
+BACKGROUND = "#111111"
+
+# Text
+TEXT_COLOR = WHITE
+
+# Feature Space
+AXIS_COLOR = GREY_B
+AXIS_WIDTH = 2
+
+# Dataset
+CLASS_RED = "#E74C3C"
+CLASS_BLUE = "#3498DB"
+
+POINT_RADIUS = 0.08
+
+# Decision Boundary
+BOUNDARY_COLOR = WHITE
+BOUNDARY_WIDTH = 3
+
+# Other
+SUCCESS = GREEN
+ERROR = ORANGE
