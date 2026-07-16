@@ -33,6 +33,54 @@ class DecisionBoundary(Line):
         )
 
     # ---------------------------------
+    # Move Boundary
+    # ---------------------------------
+
+    def move_to_position(self, position):
+        return self.animate.move_to(position)
+
+    # ---------------------------------
+    # Focus
+    # ---------------------------------
+
+    def focus(self):
+        return self.animate.set_stroke(
+            width=7,
+            opacity=1,
+        )
+
+    # ---------------------------------
+    # Restore
+    # ---------------------------------
+
+    def restore(self):
+        return self.animate.set_stroke(
+            width=5,
+            opacity=1,
+        )
+
+    # ---------------------------------
+    # Dim
+    # ---------------------------------
+
+    def fade_dim(self):
+        return self.animate.set_opacity(0.35)
+
+    # ---------------------------------
+    # Fade In
+    # ---------------------------------
+
+    def fade_in(self):
+        return FadeIn(self)
+
+    # ---------------------------------
+    # Fade Out
+    # ---------------------------------
+
+    def fade_out(self):
+        return FadeOut(self)
+
+    # ---------------------------------
     # Success Animation
     # ---------------------------------
 
@@ -45,3 +93,10 @@ class DecisionBoundary(Line):
 
     def failure(self):
         return self.animate.set_color(RED)
+
+    # ---------------------------------
+    # Reset Color
+    # ---------------------------------
+
+    def reset(self):
+        return self.animate.set_color(BOUNDARY_COLOR)

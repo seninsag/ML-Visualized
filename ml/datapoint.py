@@ -101,3 +101,13 @@ class DataPoint(Dot):
 
     def restore_color(self):
         return self.animate.set_color(self.original_color)
+    
+    # ---------------------------------
+    # Misclassified
+    # ---------------------------------
+
+    def misclassified(self):
+        return Succession(
+            self.animate.set_stroke(RED, width=5).scale(1.2),
+            self.animate.set_stroke(width=0).scale(1 / 1.2),
+        )
