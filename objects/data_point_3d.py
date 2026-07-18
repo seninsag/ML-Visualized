@@ -40,7 +40,7 @@ class DataPoint3D(Dot):
     def animate_in(self):
         return GrowFromCenter(self)
 
-    def fade(self):
+    def animate_fade(self):
         return self.animate.scale(0.4).set_opacity(0.2)
 
     def restore(self):

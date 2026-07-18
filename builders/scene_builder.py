@@ -16,9 +16,12 @@ class SceneBuilder:
 
         stage = rep.get(stage_name)
 
-        axes = FeatureSpace3D()
+        axes = (
+            FeatureSpace3D()
+            .create_axes()
+            .create_labels()
+        )
 
-        plane = ActivationPlane()
 
         grid = FeatureSpaceGrid(
             grid_data=stage.grid
@@ -26,12 +29,12 @@ class SceneBuilder:
 
         cloud = PointCloud(
             stage.points,
-            colors=rep.dataset["colors"]
+            colors=rep.dataset["colors"],
+            labels=rep.dataset["labels"],
         )
 
         return SceneObjects(
             axes=axes,
             grid=grid,
             cloud=cloud,
-            plane=plane,
         )

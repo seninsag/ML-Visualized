@@ -11,24 +11,38 @@ class IntroAnimation:
         scene_objects: SceneObjects,
     ):
 
+        # ---------------------------------------------------------
+        # X & Y Axes
+        # ---------------------------------------------------------
+
         scene.play(
-            Create(scene_objects.axes),
+            AnimationGroup(
+                Create(scene_objects.axes.x_axis),
+                Create(scene_objects.axes.y_axis),
+                lag_ratio=0.15,
+            ),
             run_time=1,
         )
 
+        # ---------------------------------------------------------
+        # XOR Points
+        # ---------------------------------------------------------
+
         scene.play(
-            Create(scene_objects.grid),
+            scene_objects.cloud.animate_in(),
             run_time=1.2,
         )
 
-        # ---------------- Caption ---------------- #
+        # ---------------------------------------------------------
+        # Caption
+        # ---------------------------------------------------------
 
         caption = Text(
-            "Let's transform the data instead.",
+            "Then what if we transform the data instead?",
             font_size=36,
         )
 
-        caption.to_edge(UP, buff=0.6)
+        caption.to_edge(UP, buff=0.3)
 
         scene.add_fixed_in_frame_mobjects(caption)
 
@@ -37,14 +51,41 @@ class IntroAnimation:
             run_time=0.5,
         )
 
-        # ---------------- Data ---------------- #
+        scene.wait(0.5)
 
-        scene.play(
-            scene_objects.cloud.animate_in(),
-            run_time=1.5,
+        # ---------------------------------------------------------
+        # Reveal Feature Space
+        # ---------------------------------------------------------
+
+        scene.move_camera(
+            phi=60 * DEGREES,
+            theta=-25 * DEGREES,
+            zoom=1.0,
+            run_time=2.5,
         )
 
-        scene.wait(0.8)
+        scene.play(
+            FadeIn(
+                scene_objects.grid,
+                shift=OUT * 0.3,
+            ),
+            run_time=0.6,
+        )
+
+        # ---------------------------------------------------------
+        # Reveal Z Axis
+        # ---------------------------------------------------------
+
+
+        scene.play(
+            GrowFromPoint(
+                scene_objects.axes.z_axis,
+                ORIGIN,
+            ),
+            run_time=0.8,
+        )
+
+        scene.wait(0.3)
 
         scene.play(
             FadeOut(caption),
@@ -53,4 +94,4 @@ class IntroAnimation:
 
         scene.remove_fixed_in_frame_mobjects(caption)
 
-        scene.wait(0.5)
+        scene.wait(0.3)

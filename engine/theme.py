@@ -16,6 +16,7 @@ TEXT_COLOR = WHITE
 # Axes
 # ==========================================================
 
+# Neutral axes for a clean visualization style
 AXIS_COLOR = GREY_B
 AXIS_WIDTH = 2
 
@@ -45,14 +46,14 @@ BOUNDARY_COLOR = WHITE
 BOUNDARY_WIDTH = 3
 
 # ==========================================================
-# Crease Plane
+# ReLU / Activation Plane
 # ==========================================================
 
 CREASE_COLOR = YELLOW
 CREASE_OPACITY = 0.35
 
 # ==========================================================
-# Misc
+# Status Colors
 # ==========================================================
 
 SUCCESS = GREEN

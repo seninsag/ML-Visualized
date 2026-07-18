@@ -6,18 +6,29 @@ class FeatureSpace(VGroup):
     def __init__(self):
         super().__init__()
 
-        x_axis = Line(
-            LEFT * 4,
-            RIGHT * 4,
+        self.x_axis = Line(
+            LEFT * 3,
+            RIGHT * 3,
             stroke_color=AXIS_COLOR,
             stroke_width=AXIS_WIDTH,
         )
 
-        y_axis = Line(
+        self.y_axis = Line(
             DOWN * 3,
             UP * 3,
             stroke_color=AXIS_COLOR,
             stroke_width=AXIS_WIDTH,
         )
 
-        self.add(x_axis, y_axis)
+        self.z_axis = Line(
+            ORIGIN,
+            OUT * 3,
+            stroke_color=AXIS_COLOR,
+            stroke_width=AXIS_WIDTH,
+        )
+
+        # Start with only X and Y
+        self.add(
+            self.x_axis,
+            self.y_axis,
+        )

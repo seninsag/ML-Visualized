@@ -12,4 +12,3 @@ class SceneObjects:
     axes: FeatureSpace3D
     grid: FeatureSpaceGrid
     cloud: PointCloud
-    plane: ActivationPlane

@@ -10,17 +10,29 @@ class PointCloud(VGroup):
     Replaces Dataset for 3D scenes.
     """
 
-    def __init__(self, points=None, colors=None):
+    def __init__(
+    self,
+    points=None,
+    colors=None,
+    labels=None,
+    ):
         super().__init__()
 
         self.data_points = []
         points = points or []
 
+        self.labels = (
+            labels
+            if labels is not None
+            else [0] * len(points)
+        )
+
         if colors is None:
             colors = [CLASS_BLUE] * len(points)
 
-        for point, color in zip(points, colors):
+        for i, (point, color) in enumerate(zip(points, colors)):
             dp = DataPoint3D(point, color)
+            dp.label = self.labels[i]
             self.data_points.append(dp)
             self.add(dp)
 
@@ -32,7 +44,9 @@ class PointCloud(VGroup):
     def from_dataset(cls, red_points, blue_points):
         points = red_points + blue_points
         colors = [CLASS_RED] * len(red_points) + [CLASS_BLUE] * len(blue_points)
-        return cls(points, colors)
+        labels = ([0] * len(red_points) + [1] * len(blue_points)
+)
+        return cls(points, colors, labels,)
 
     @classmethod
     def from_coordinates(cls, coords, colors):

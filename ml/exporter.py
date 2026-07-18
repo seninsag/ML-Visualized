@@ -93,6 +93,27 @@ class RepresentationExporter:
         self.dataset_labels = torch.tensor(all_labels, dtype=torch.long)
 
         return self
+    
+
+    def generate_xor(self):
+        """
+        Generate the four canonical XOR points.
+        """
+
+        self.dataset_points = torch.tensor([
+            [-2.0,  2.0],
+            [ 2.0, -2.0],
+            [-2.0, -2.0],
+            [ 2.0,  2.0],
+        ], dtype=torch.float32)
+
+        self.dataset_labels = torch.tensor(
+            [0, 0, 1, 1],
+            dtype=torch.long,
+        )
+
+        return self
+
 
     def generate_grid(self):
         x_vals = np.linspace(self.grid_range[0], self.grid_range[1], self.grid_size)
@@ -369,7 +390,7 @@ if __name__ == "__main__":
         mode="educational",
     )
 
-    exporter.generate_spread_xor(points_per_center=10)
+    exporter.generate_xor()
     exporter.generate_grid()
     exporter.build_model()
 

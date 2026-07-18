@@ -22,15 +22,6 @@ class Scene05(ThreeDScene):
 
         linear_stage = rep.get("linear1")
 
-        # ---------------------------------------------------------
-        # Camera
-        # ---------------------------------------------------------
-
-        self.set_camera_orientation(
-            phi=70 * DEGREES,
-            theta=-45 * DEGREES,
-            zoom=1.0,
-        )
 
         # ---------------------------------------------------------
         # Build Scene
@@ -41,14 +32,18 @@ class Scene05(ThreeDScene):
             stage_name="input",
         )
 
-        # Optional override
-        scene_objects.plane.set_fill(opacity=0.05)
 
 
         # ---------------------------------------------------------
         # Intro
         # ---------------------------------------------------------
 
+        self.set_camera_orientation(
+            phi=0,
+            theta=-90 * DEGREES,
+            zoom=0.75,
+        )
+        
         IntroAnimation.play(
             self,
             scene_objects,

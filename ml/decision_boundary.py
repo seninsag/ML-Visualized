@@ -1,102 +1,60 @@
 from manim import *
+import numpy as np
 
 from engine.theme import *
+from ml.linear_classifier import LinearClassifier
 
 
 class DecisionBoundary(Line):
+    """
+    Draws the decision boundary learned by a Linear SVM.
+    """
 
-    def __init__(self, angle=18):
+    def __init__(self, start, end):
         super().__init__(
-            LEFT * 4,
-            RIGHT * 4,
-            color=BOUNDARY_COLOR,
-            stroke_width=5,
+            start=start,
+            end=end,
+            color=GREEN,
+            stroke_width=3,
         )
 
-        self.current_angle = angle
-        self.rotate(angle * DEGREES)
-
-    # ---------------------------------
-    # Rotate to an absolute angle
-    # ---------------------------------
-
-    def rotate_to(self, target_angle):
-
-        delta = target_angle - self.current_angle
-        self.current_angle = target_angle
-
-        return Rotate(
-            self,
-            angle=delta * DEGREES,
-            about_point=self.get_center(),
-            rate_func=smooth,
-        )
-
-    # ---------------------------------
-    # Move Boundary
-    # ---------------------------------
-
-    def move_to_position(self, position):
-        return self.animate.move_to(position)
-
-    # ---------------------------------
-    # Focus
-    # ---------------------------------
-
-    def focus(self):
-        return self.animate.set_stroke(
-            width=7,
-            opacity=1,
-        )
-
-    # ---------------------------------
-    # Restore
-    # ---------------------------------
-
-    def restore(self):
-        return self.animate.set_stroke(
-            width=5,
-            opacity=1,
-        )
-
-    # ---------------------------------
-    # Dim
-    # ---------------------------------
-
-    def fade_dim(self):
-        return self.animate.set_opacity(0.35)
-
-    # ---------------------------------
-    # Fade In
-    # ---------------------------------
-
-    def fade_in(self):
-        return FadeIn(self)
-
-    # ---------------------------------
-    # Fade Out
-    # ---------------------------------
-
-    def fade_out(self):
-        return FadeOut(self)
-
-    # ---------------------------------
-    # Success Animation
-    # ---------------------------------
+        self.set_opacity(0.75)
 
     def success(self):
         return self.animate.set_color(GREEN)
 
-    # ---------------------------------
-    # Failure Animation
-    # ---------------------------------
-
     def failure(self):
         return self.animate.set_color(RED)
 
-    # ---------------------------------
-    # Reset Color
-    # ---------------------------------
+    @classmethod
+    def from_cloud(cls, cloud):
+        classifier = LinearClassifier().fit(cloud)
 
-    def reset(self):
-        return self.animate.set_color(BOUNDARY_COLOR)
+        w = classifier.normal
+        b = classifier.bias
+
+        # Average z level of all points
+        z = np.mean([
+            dp.get_center()[2]
+            for dp in cloud.data_points
+        ])
+
+        # Plane equation:
+        # w0*x + w1*y + w2*z + b = 0
+        c = w[2] * z + b
+
+        # Prevent division by zero
+        if abs(w[1]) < 1e-8:
+            w[1] = 1e-8
+
+        # Draw a long line across the scene
+        x_min = -5
+        x_max = 5
+
+        y_min = -(w[0] * x_min + c) / w[1]
+        y_max = -(w[0] * x_max + c) / w[1]
+
+        start = np.array([x_min, y_min, z])
+        end = np.array([x_max, y_max, z])
+
+        return cls(start, end)
